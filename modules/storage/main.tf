@@ -5,9 +5,6 @@ resource "azurerm_storage_account" "example" {
   account_tier             = "Standard"
   account_replication_type = "GRS"
 
-  tags = {
-    environment = "staging"
-  }
 }
 
 # dette legges til etter apply, det funker ikke uten eksisterende storage account
