@@ -4,7 +4,6 @@ resource "azurerm_storage_account" "example" {
   location                 = var.location
   account_tier             = "Standard"
   account_replication_type = "GRS"
-
 }
 
 # dette legges til etter apply, det funker ikke uten eksisterende storage account
