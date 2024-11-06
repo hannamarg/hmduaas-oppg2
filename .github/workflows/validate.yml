@@ -60,4 +60,4 @@ jobs:
         uses: aquasecurity/tfsec-action@v1.0.3
         with:
           working_directory: ${{ env.WORKING_DIR }}
-          github_token: ${{ env.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
