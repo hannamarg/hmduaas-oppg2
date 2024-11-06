@@ -1,3 +1,4 @@
+
 /*output "ami_id" {
   value = aws_instance.example.ami
 } # bare et eksempel, skal fjernes

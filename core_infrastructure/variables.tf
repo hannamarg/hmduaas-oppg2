@@ -1,3 +1,4 @@
+
 variable "resource_group_name" {
     type = string
     description = "name of resource group"
@@ -14,4 +15,5 @@ variable "path" {
     description = "path to tfstate file"
     default     = "./terraform.tfstate"
 }
+
 

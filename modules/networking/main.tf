@@ -1,3 +1,4 @@
+
 resource "azurerm_network_security_group" "example" {
   name                = "security-group-hmhd-${var.random_string}"
   location            = var.location

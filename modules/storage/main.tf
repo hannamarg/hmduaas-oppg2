@@ -1,3 +1,4 @@
+
 resource "azurerm_storage_account" "example" {
   name                     = "storageaccount${var.random_string}"
   resource_group_name      = var.resource_group_name
