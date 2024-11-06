@@ -49,14 +49,15 @@ jobs:
         run: terraform validate
         working-directory: ${{ env.WORKING_DIR }}
 
-      - name: Run TFLint
-        id: tflint
-        run: |
-          tflint --init
-          tflint
-        working-directory: ${{ env.WORKING_DIR }} 
+      - name: Setup TFLint
+        uses: terraform-linters/setup-tflint@v4.0.0
+        with:
+          tflint_version: default
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          tflint_wrapper: false 
 
-      - name: Run tfsec
-        id: tfsec
-        run: tfsec .
-        working-directory: ${{ env.WORKING_DIR }} 
+      - name: tfsec
+        uses: aquasecurity/tfsec-action@v1.0.3
+        with:
+          working_directory: ${{ env.WORKING_DIR }}
+          github_token: ${{ env.GITHUB_TOKEN }}
