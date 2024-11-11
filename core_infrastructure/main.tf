@@ -41,7 +41,7 @@ resource "azurerm_resource_group" "example" {
   location = var.location
 }
 
-module "network" {
+module "networking" {
   source = "../modules/networking"
   resource_group_name = azurerm_resource_group.example.name
   location            = azurerm_resource_group.example.location
