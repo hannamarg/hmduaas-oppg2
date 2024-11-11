@@ -18,9 +18,19 @@ env:
   WORKING_DIR: ./core_infrastructure
 
 jobs:
-  dev_stage:
+  pull:
     runs-on: ubuntu-22.04
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.1
+      
+      - name: Terraform state pull
+        run: terraform state pull
+        working-directory: ${{ env.WORKING_DIR }}
+
+  dev_stage:
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.1
