@@ -4,6 +4,8 @@ on:
   push:
     paths:
       - '**'
+    paths-ignore:
+      - 'global'
   workflow_run:
     workflows: ["Validate Infrastructure"]
     types:
