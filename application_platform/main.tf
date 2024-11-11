@@ -55,20 +55,20 @@ data "terraform_remote_state" "global" {
 }
 
 resource "azurerm_resource_group" "example" {
-  name     = "resource-group"
-  location = "West Europe"
+  name     = var.resource_group_name
+  location = var.location
 }
 
 module "load_balancer" {
   source = "../modules/load_balancer"
   resource_group_name = azurerm_resource_group.example.name
   location            = azurerm_resource_group.example.location
-  random_string       = data.terraform_remote_state.global.outputs.random_string.value
+  random_string       = data.terraform_remote_state.global.outputs.random_string
 }
 
-module "app_service" {
-  source = "../modules/app_service"
+module "web_app" {
+  source = "../modules/web_app"
   resource_group_name = azurerm_resource_group.example.name
   location            = azurerm_resource_group.example.location
-  random_string       = data.terraform_remote_state.global.outputs.random_string.value
+  random_string       = data.terraform_remote_state.global.outputs.random_string
 }

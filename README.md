@@ -1,0 +1,1 @@
+husk å legge til secrets i git med tanke på workflows.

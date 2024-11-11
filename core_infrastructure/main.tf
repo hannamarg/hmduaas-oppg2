@@ -37,8 +37,8 @@ data "terraform_remote_state" "global" {
 
 
 resource "azurerm_resource_group" "example" {
-  name     = "resource-group"
-  location = "West Europe"
+  name     = var.resource_group_name
+  location = var.location
 }
 
 module "networking" {
