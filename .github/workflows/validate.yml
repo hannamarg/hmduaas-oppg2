@@ -9,43 +9,92 @@ on:
     paths:
       - '**'
 
+    
+env:
+  ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+  ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+  ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+  WORKING_DIR: ./
+  GLOBAL: ./global
+  CORE: ./core_infrastructure
+  APP: ./application_platform
 
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+  # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "validate"
-  terraform:
-    name: 'Validate'
+  global:
+    name: 'Validate global'
     # The type of runner that the job will run on
     runs-on: ubuntu-22.04
-    
-    env:
-      ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-      ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-      WORKING_DIR: ./
-      
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4.1.1
-
-      # Runs a single command using the runners shell
+      
       - name: Terraform init
-        id: init
+        id: init global
         run: terraform init
-        working-directory: ${{ env.WORKING_DIR }}          
-
-      - name: Terraform fmt
-        id: fmt
-        run: terraform fmt
-        working-directory: ${{ env.WORKING_DIR }}
+        working-directory: ${{ env.GLOBAL }} 
 
       - name: Terraform validate
-        id: validate
+        id: validate global
         run: terraform validate
-        working-directory: ${{ env.WORKING_DIR }}
+        working-directory: ${{ env.GLOBAL }}
+
+
+    core:
+      name: 'Validate core'
+      # The type of runner that the job will run on
+      runs-on: ubuntu-22.04
+      # Steps represent a sequence of tasks that will be executed as part of the job
+      steps:
+        # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+        - uses: actions/checkout@v4.1.1
+      
+        - name: Terraform init
+          id: init core
+          run: terraform init
+          working-directory: ${{ env.CORE }} 
+
+        - name: Terraform validate
+          id: validate core
+          run: terraform validate
+          working-directory: ${{ env.CORE }}  
+
+      app:
+        name: 'Validate app'
+        # The type of runner that the job will run on
+        runs-on: ubuntu-22.04
+        # Steps represent a sequence of tasks that will be executed as part of the job
+        steps:
+          # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+          - uses: actions/checkout@v4.1.1
+      
+          - name: Terraform init
+            id: init app
+            run: terraform init
+            working-directory: ${{ env.APP }} 
+
+          - name: Terraform validate
+            id: validate app
+            run: terraform validate
+            working-directory: ${{ env.APP }}
+
+        rest:
+          name: 'Validate'
+          # The type of runner that the job will run on
+          runs-on: ubuntu-22.04
+          # Steps represent a sequence of tasks that will be executed as part of the job
+          steps:
+            # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+            - uses: actions/checkout@v4.1.1
+
+            - name: Terraform fmt
+              id: fmt
+              run: terraform fmt -recursive
+              working-directory: ${{ env.WORKING_DIR }}
+  
 
       #- name: Setup TFLint
       #  uses: terraform-linters/setup-tflint@v4.0.0
