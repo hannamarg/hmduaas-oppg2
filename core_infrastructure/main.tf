@@ -28,10 +28,10 @@ data "terraform_remote_state" "global" {
   backend = "azurerm" 
 
   config = {
-    storage_account_name = "sademobackendhmhd"
-    container_name       = "tfstate"                 
-    key                  = "global.tfstate"
     resource_group_name  = "rg-demo-backend-hmhd"
+    storage_account_name = "sademobackendhmhd"
+    container_name       = "tfstate"
+    key                  = "global.tfstateenv:${terraform.workspace}"
   }
 }
 
