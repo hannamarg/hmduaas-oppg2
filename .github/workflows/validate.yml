@@ -33,12 +33,12 @@ jobs:
       - uses: actions/checkout@v4.1.1
       
       - name: Terraform init
-        id: init global
+        id: init_global
         run: terraform init
         working-directory: ${{ env.GLOBAL }} 
 
       - name: Terraform validate
-        id: validate global
+        id: validate_global
         run: terraform validate
         working-directory: ${{ env.GLOBAL }}
 
@@ -53,12 +53,12 @@ jobs:
       - uses: actions/checkout@v4.1.1
       
       - name: Terraform init
-        id: init core
+        id: init_core
         run: terraform init
         working-directory: ${{ env.CORE }} 
 
       - name: Terraform validate
-        id: validate core
+        id: validate_core
         run: terraform validate
         working-directory: ${{ env.CORE }}  
 
@@ -72,12 +72,12 @@ jobs:
       - uses: actions/checkout@v4.1.1
       
       - name: Terraform init
-        id: init app
+        id: init_app
         run: terraform init
         working-directory: ${{ env.APP }} 
 
       - name: Terraform validate
-        id: validate app
+        id: validate_app
         run: terraform validate
         working-directory: ${{ env.APP }}
 
