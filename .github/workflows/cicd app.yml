@@ -3,7 +3,7 @@ name: Terraform CI/CD core
 on:
   push:
     paths:
-      - 'core_infrastructure/**'
+      - 'application_platform/**'
   workflow_run:
     workflows: ["Validate Infrastructure"]
     types:
@@ -15,7 +15,7 @@ env:
   ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
   ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
   ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-  WORKING_DIR: ./core_infrastructure
+  WORKING_DIR: ./application_platform
 
 jobs:
   pull:
