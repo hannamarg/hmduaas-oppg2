@@ -43,57 +43,57 @@ jobs:
         working-directory: ${{ env.GLOBAL }}
 
 
-    core:
-      name: 'Validate core'
-      # The type of runner that the job will run on
-      runs-on: ubuntu-22.04
-      # Steps represent a sequence of tasks that will be executed as part of the job
-      steps:
-        # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-        - uses: actions/checkout@v4.1.1
+  core:
+    name: 'Validate core'
+    # The type of runner that the job will run on
+    runs-on: ubuntu-22.04
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4.1.1
       
-        - name: Terraform init
-          id: init core
-          run: terraform init
-          working-directory: ${{ env.CORE }} 
+      - name: Terraform init
+        id: init core
+        run: terraform init
+        working-directory: ${{ env.CORE }} 
 
-        - name: Terraform validate
-          id: validate core
-          run: terraform validate
-          working-directory: ${{ env.CORE }}  
+      - name: Terraform validate
+        id: validate core
+        run: terraform validate
+        working-directory: ${{ env.CORE }}  
 
-      app:
-        name: 'Validate app'
-        # The type of runner that the job will run on
-        runs-on: ubuntu-22.04
-        # Steps represent a sequence of tasks that will be executed as part of the job
-        steps:
-          # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-          - uses: actions/checkout@v4.1.1
+  app:
+    name: 'Validate app'
+    # The type of runner that the job will run on
+    runs-on: ubuntu-22.04
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4.1.1
       
-          - name: Terraform init
-            id: init app
-            run: terraform init
-            working-directory: ${{ env.APP }} 
+      - name: Terraform init
+        id: init app
+        run: terraform init
+        working-directory: ${{ env.APP }} 
 
-          - name: Terraform validate
-            id: validate app
-            run: terraform validate
-            working-directory: ${{ env.APP }}
+      - name: Terraform validate
+        id: validate app
+        run: terraform validate
+        working-directory: ${{ env.APP }}
 
-        rest:
-          name: 'Validate'
-          # The type of runner that the job will run on
-          runs-on: ubuntu-22.04
-          # Steps represent a sequence of tasks that will be executed as part of the job
-          steps:
-            # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-            - uses: actions/checkout@v4.1.1
+  rest:
+    name: 'Validate'
+    # The type of runner that the job will run on
+    runs-on: ubuntu-22.04
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4.1.1
 
-            - name: Terraform fmt
-              id: fmt
-              run: terraform fmt -recursive
-              working-directory: ${{ env.WORKING_DIR }}
+      - name: Terraform fmt
+        id: fmt
+        run: terraform fmt -recursive
+        working-directory: ${{ env.WORKING_DIR }}
   
 
       #- name: Setup TFLint
