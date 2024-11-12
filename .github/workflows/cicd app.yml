@@ -1,4 +1,4 @@
-name: Terraform CI/CD core
+name: Terraform CI/CD app
 
 on:
   push:
