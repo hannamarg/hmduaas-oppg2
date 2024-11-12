@@ -2,7 +2,7 @@
 variable "resource_group_name" {
     type = string
     description = "name of resource group"
-    default     = "rg-hmhd-core:${terraform.workspace}"
+    default     = "rg-hmhd-core"
 }
 
 variable "location" {
