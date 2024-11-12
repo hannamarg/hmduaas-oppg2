@@ -3,9 +3,9 @@ name: Terraform CI/CD core
 on:
   push:
     paths:
-      - 'core_infrastructure/**'
+      - '**'
   workflow_run:
-    workflows: ["Validate Infrastructure"]
+    workflows: ["Terraform CI/CD global"]
     types:
       - completed
   workflow_dispatch:

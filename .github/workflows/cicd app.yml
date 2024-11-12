@@ -3,9 +3,9 @@ name: Terraform CI/CD app
 on:
   push:
     paths:
-      - 'application_platform/**'
+      - '**'
   workflow_run:
-    workflows: ["Validate Infrastructure"]
+    workflows: ["Terraform CI/CD core"]
     types:
       - completed
   workflow_dispatch:

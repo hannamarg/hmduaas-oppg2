@@ -3,7 +3,7 @@ name: Terraform CI/CD global
 on:
   push:
     paths:
-      - 'global/**'
+      - '**'
   workflow_run:
     workflows: ["Validate Infrastructure"]
     types:
