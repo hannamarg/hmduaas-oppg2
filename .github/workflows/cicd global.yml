@@ -31,7 +31,6 @@ jobs:
           if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
             echo "Switching to prod workspace"
             terraform workspace select prod || terraform workspace new prod
-
           elif [[ "${{ github.ref }}" == "refs/heads/staging" ]]; then
             echo "Switching to staging workspace"
             terraform workspace select staging || terraform workspace new staging
