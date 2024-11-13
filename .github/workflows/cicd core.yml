@@ -31,6 +31,7 @@ jobs:
         run: terraform state pull
         working-directory: ${{ env.WORKING_DIR }}
 
+
   deploy:
     needs: pull
     runs-on: ubuntu-22.04
@@ -50,7 +51,7 @@ jobs:
             terraform workspace select dev || terraform workspace new dev
           fi
 
-      #I know this should not be here, but it has to so that core_infrastructure can find the state
+      #I know this should not be here, but it is an attempt at getting core_infrastructure to find the state
       - name: Terraform init global
         run: terraform init
         working-directory: ${{ env.GLOBAL_DIR }}
@@ -73,5 +74,5 @@ jobs:
         working-directory: ${{ env.WORKING_DIR }}
       
       - name: Terraform apply dev
-        run: terraform apply -auto-approve
+        run: terraform apply -auto-approve -var-file="terraform.tfvars.$(terraform workspace show)"
         working-directory: ${{ env.WORKING_DIR }}

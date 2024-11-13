@@ -1,0 +1,3 @@
+max_size_gb  = 1024  # Eksempelvis 1 TB
+sku_name     = "P1"  
+enclave_type = "VBS"  

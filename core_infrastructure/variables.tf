@@ -11,10 +11,14 @@ variable "location" {
     default = "West Europe"
 }
 
-variable "path" {
-    type = string
-    description = "path to tfstate file"
-    default     = "./terraform.tfstate"
+variable "max_size_gb" {
+  type = number
 }
 
+variable "sku_name" {
+  type = string
+}
 
+variable "enclave_type" {
+  type = string
+}

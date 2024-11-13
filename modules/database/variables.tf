@@ -13,3 +13,15 @@ variable "random_string" {
   type = string
   description = "random string to put after names"
 }
+
+variable "max_size_gb" {
+  type = number
+}
+
+variable "sku_name" {
+  type = string
+}
+
+variable "enclave_type" {
+  type = string
+}

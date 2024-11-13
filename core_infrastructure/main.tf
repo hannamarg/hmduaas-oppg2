@@ -53,6 +53,9 @@ module "database" {
   resource_group_name = azurerm_resource_group.example.name
   location            = azurerm_resource_group.example.location
   random_string       = data.terraform_remote_state.global.outputs.random_string
+  max_size_gb         = var.max_size_gb
+  sku_name            = var.sku_name
+  enclave_type        = var.enclave_type
 }
 
 module "storage" {

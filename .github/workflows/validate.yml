@@ -1,5 +1,3 @@
-# This is a basic workflow to help validate your Terraform configuration
-
 name: Validate Infrastructure
 
 # Controls when the workflow will run
@@ -93,7 +91,8 @@ jobs:
         id: fmt
         run: terraform fmt -recursive
         working-directory: ${{ env.WORKING_DIR }}
-  
+
+      #you can use the steps under to run TFLint and tfsec if this is something you wish.
 
       #- name: Setup TFLint
       #  uses: terraform-linters/setup-tflint@v4.0.0
