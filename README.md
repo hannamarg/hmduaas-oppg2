@@ -13,6 +13,8 @@ You also need to make the branches staging and dev. In my implementation i have 
 workflows:
 To use the validate workflow with tfsec and tflint you need to download these before use. If you dont want that, they are already commented out in the workflow.
 
+The validate workflow works on every branch that is not main, so it does not validate the prod environments, since code should not be pushed to this branch before it has been validated. When pushing on either main, dev or staging branch, the three other workflows will run, these apply the infrastructure for the environment belonging to the branch you pushed on.
+
 
 code:
 I have given some examples og how to use the terraform.tfvars files with different environments in core_infrastructure with variables used in the database module. If you want to add more, it can be done in the same way.
