@@ -1,9 +1,6 @@
 name: Terraform CI/CD core
 
 on:
-  push:
-    paths:
-      - '**'
   workflow_run:
     workflows: ["Terraform CI/CD global"]
     types:
@@ -87,8 +84,7 @@ jobs:
     needs: stage_prod
     runs-on: ubuntu-22.04
     environment: 
-      name: production
-      url: ${{ steps.get_web_endpoint.outputs.WEB_ENDPOINT }} # replace deploy_prod and web_url with actual output variables
+      name: prod
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.1
