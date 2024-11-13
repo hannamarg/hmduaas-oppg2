@@ -63,6 +63,10 @@ jobs:
         run: terraform init
         working-directory: ${{ env.WORKING_DIR }}
 
+      - name: Terraform state pull
+        run: terraform state pull
+        working-directory: ${{ env.WORKING_DIR }}
+
       - name: Terraform plan
         id: plan
         run: terraform plan
