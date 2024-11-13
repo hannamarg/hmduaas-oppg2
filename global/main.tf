@@ -25,6 +25,11 @@ provider "azurerm" {
 
 provider "random" {}
 
+resource "azurerm_resource_group" "example" {
+  name     = "${var.resource_group_name}-${terraform.workspace}"
+  location = var.location
+}
+
 resource "random_string" "random_string" {
   length  = 5
   special = false
