@@ -16,7 +16,7 @@ env:
   WORKING_DIR: ./global
 
 jobs:
-  dev_stage:
+  deploy:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout

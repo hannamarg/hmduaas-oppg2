@@ -30,7 +30,7 @@ jobs:
         run: terraform state pull
         working-directory: ${{ env.WORKING_DIR }}
 
-  dev_stage:
+  deploy:
     needs: pull
     runs-on: ubuntu-22.04
     steps:
@@ -41,9 +41,17 @@ jobs:
         run: terraform init
         working-directory: ${{ env.WORKING_DIR }}
         
-      - name: Terraform workspace select or create dev
-        run: terraform workspace select dev || terraform workspace new dev
-        working-directory: ${{ env.WORKING_DIR }}
+      - name: Choose Terraform workspace
+        run: |
+          echo "Triggered by branch: ${{ github.event.workflow_run.head_branch }}"
+          
+          if [[ "${{ github.event.workflow_run.head_branch }}" == "main" ]]; then
+            terraform workspace select prod || terraform workspace new prod
+          elif [[ "${{ github.event.workflow_run.head_branch }}" == "staging" ]]; then
+            terraform workspace select staging || terraform workspace new staging
+          elif [[ "${{ github.event.workflow_run.head_branch }}" == "dev" ]]; then
+            terraform workspace select dev || terraform workspace new dev
+          fi
 
       - name: Terraform plan
         id: plan
@@ -51,57 +59,5 @@ jobs:
         working-directory: ${{ env.WORKING_DIR }}
       
       - name: Terraform apply dev
-        run: terraform apply -auto-approve
-        working-directory: ${{ env.WORKING_DIR }}
-
-
-  stage_prod:
-    needs: dev_stage
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4.1.1
-      
-      - name: Terraform init
-        run: terraform init
-        working-directory: ${{ env.WORKING_DIR }}
-        
-      - name: Terraform workspace select or create staging
-        run: terraform workspace select staging || terraform workspace new staging
-        working-directory: ${{ env.WORKING_DIR }}
-
-      - name: Terraform plan
-        id: plan
-        run: terraform plan
-        working-directory: ${{ env.WORKING_DIR }}
-      
-      - name: Terraform apply staging
-        run: terraform apply -auto-approve
-        working-directory: ${{ env.WORKING_DIR }}
-
-
-  prod:
-    needs: stage_prod
-    runs-on: ubuntu-22.04
-    environment: 
-      name: prod
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4.1.1
-      
-      - name: Terraform init
-        run: terraform init
-        working-directory: ${{ env.WORKING_DIR }}
-        
-      - name: Terraform workspace select or create prod
-        run: terraform workspace select prod || terraform workspace new prod
-        working-directory: ${{ env.WORKING_DIR }}
-
-      - name: Terraform plan
-        id: plan
-        run: terraform plan
-        working-directory: ${{ env.WORKING_DIR }}
-      
-      - name: Terraform apply prod
         run: terraform apply -auto-approve
         working-directory: ${{ env.WORKING_DIR }}
