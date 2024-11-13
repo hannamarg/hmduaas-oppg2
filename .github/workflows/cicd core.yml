@@ -41,15 +41,6 @@ jobs:
       - name: Terraform init
         run: terraform init
         working-directory: ${{ env.WORKING_DIR }}
-
-        #I know this should not be here, but it has to so that core_infrastructure can find the state
-      - name: Terraform init global
-        run: terraform init
-        working-directory: ${{ env.GLOBAL_DIR }}
-
-      - name: apply global
-        run: terraform apply
-        working-directory: ${{ env.GLOBAL_DIR }}
         
       - name: Choose Terraform workspace
         run: |
@@ -62,6 +53,15 @@ jobs:
           elif [[ "${{ github.event.workflow_run.head_branch }}" == "dev" ]]; then
             terraform workspace select dev || terraform workspace new dev
           fi
+
+      #I know this should not be here, but it has to so that core_infrastructure can find the state
+      - name: Terraform init global
+        run: terraform init
+        working-directory: ${{ env.GLOBAL_DIR }}
+
+      - name: apply global
+        run: terraform apply
+        working-directory: ${{ env.GLOBAL_DIR }}
 
       - name: Terraform plan
         id: plan
