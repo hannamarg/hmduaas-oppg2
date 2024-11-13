@@ -22,15 +22,6 @@ provider "azurerm" {
     }
   }
 }
-/*
-data "terraform_remote_state" "remote_project" {
-  backend = "local"
-
-  config = {
-    path = "core_infrastructure/terraform.tfstate"
-  }
-}
-*/
 
 data "terraform_remote_state" "remote_project" {
   backend = "azurerm" 
@@ -38,7 +29,7 @@ data "terraform_remote_state" "remote_project" {
   config = {
     storage_account_name = "sademobackendhmhd"
     container_name       = "tfstate"                 
-    key                  = "core.tfstate"
+    key                  = "core.tfstateenv:${terraform.workspace}"
     resource_group_name  = "rg-demo-backend-hmhd"
   }
 }
@@ -49,13 +40,13 @@ data "terraform_remote_state" "global" {
   config = {
     storage_account_name = "sademobackendhmhd"
     container_name       = "tfstate"                 
-    key                  = "global.tfstate"
+    key                  = "global.tfstateenv:${terraform.workspace}"
     resource_group_name  = "rg-demo-backend-hmhd"
   }
 }
 
 resource "azurerm_resource_group" "example" {
-  name     = var.resource_group_name
+  name     = "${var.resource_group_name}-${terraform.workspace}"
   location = var.location
 }
 
