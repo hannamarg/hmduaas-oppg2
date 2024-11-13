@@ -29,11 +29,16 @@ jobs:
       - name: Choose Terraform workspace
         run: |
           if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            echo "Switching to prod workspace"
             terraform workspace select prod || terraform workspace new prod
           elif [[ "${{ github.ref }}" == "refs/heads/staging" ]]; then
+            echo "Switching to staging workspace"
             terraform workspace select staging || terraform workspace new staging
           elif [[ "${{ github.ref }}" == "refs/heads/dev" ]]; then
+            echo "Switching to dev workspace"
             terraform workspace select dev || terraform workspace new dev
+          else
+            echo "No matching branch found"
           fi
 
       - name: Terraform plan
