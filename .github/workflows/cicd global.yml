@@ -28,11 +28,11 @@ jobs:
         
       - name: Choose Terraform workspace
         run: |
-          if [[ "${{ github.head_ref }}" == "main" ]]; then
+          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
             terraform workspace select prod || terraform workspace new prod
-          elif [[ "${{ github.head_ref }}" == "staging" ]]; then
+          elif [[ "${{ github.ref }}" == "refs/heads/staging" ]]; then
             terraform workspace select staging || terraform workspace new staging
-          elif [[ "${{ github.head_ref }}" == "dev" ]]; then
+          elif [[ "${{ github.ref }}" == "refs/heads/dev" ]]; then
             terraform workspace select dev || terraform workspace new dev
           fi
 
